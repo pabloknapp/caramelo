@@ -25,7 +25,7 @@ app.post("/api/llm", async (req, res) => {
         const { prompt } = req.body;
 
         if (!prompt || prompt.trim().length === 0) {
-            return res.status(400).json({ erro: "O campo prompt e obrigatorio." });
+            return res.status(400).json({ erro: "O campo de prompt é obrigatório." });
         }
 
         if (prompt.length > 2000) {

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chef Caramelo</title>
     <link rel="icon" href="favico.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,24 +25,25 @@
 <body
     class="bg-surface-muted min-h-screen font-sans text-text-main flex flex-col items-center justify-center py-12 px-4 selection:bg-primary selection:text-white">
 
-    <header class="w-full max-w-5xl mb-8 flex flex-col items-center text-center">
-        <div class="flex items-center gap-4 mb-4">
+    <header class="w-full max-w-5xl mb-6 md:mb-8 flex flex-col items-center text-center">
+        <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4">
             <div
-                class="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center shrink-0 overflow-hidden border-2 border-primary">
+                class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary flex items-center justify-center shrink-0 overflow-hidden border-2 border-primary">
                 <img src="caramelo.png" alt="Logo Caramelo" class="w-full h-full object-cover">
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-text-main">Chef Caramelo</h1>
         </div>
-        <p class="text-xl text-text-muted max-w-2xl mt-2 mb-16">O melhor amigo do homem agora na cozinha, pronto para
+        <p class="text-lg md:text-xl text-text-muted max-w-2xl mt-2 mb-10 md:mb-16 px-2">O melhor amigo do homem agora
+            na cozinha, pronto para
             te ensinar a preparar qualquer receita culinária!</p>
     </header>
 
-    <main class="w-full max-w-5xl bg-white rounded-3xl p-8 md:p-12 custom-shadow relative">
+    <main class="w-full max-w-5xl bg-white rounded-3xl p-5 sm:p-8 md:p-12 custom-shadow relative">
 
         <section class="">
             <div class="relative group">
                 <textarea id="prompt"
-                    class="w-full bg-white border-2 border-surface-border/40 focus:border-primary rounded-2xl p-6 pr-16 text-md text-text-main placeholder:text-text-muted/70 outline-none resize-none transition-all duration-300 min-h-[140px] input-shadow"
+                    class="w-full bg-white border-2 border-surface-border/40 focus:border-primary rounded-2xl p-4 sm:p-6 pr-14 sm:pr-16 text-base sm:text-md text-text-main placeholder:text-text-muted/70 outline-none resize-none transition-all duration-300 min-h-[120px] sm:min-h-[140px] input-shadow overflow-hidden"
                     placeholder="O que vamos cozinhar hoje? Se estiver sem ideias, mande seus ingredientes e eu encontrarei a melhor receita"></textarea>
 
                 <button id="send-btn" onclick="enviar()"
@@ -76,54 +78,67 @@
             </div>
 
             <div id="cartao-info-prato"
-                class="bg-white border border-surface-border/40 rounded-2xl p-6 card-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4 opacity-0">
+                class="bg-white border border-surface-border/40 rounded-2xl p-5 sm:p-6 card-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4 opacity-0">
                 <div class="flex-1">
                     <h2 id="nome-prato" class="text-2xl md:text-3xl font-extrabold text-text-main leading-tight"></h2>
                 </div>
-                <div
-                    class="bg-surface-muted border border-surface-border/30 rounded-xl py-3 px-5 flex items-center gap-2 shrink-0 self-start sm:self-auto card-shadow">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                        <i data-lucide="clock" class="text-muted w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <span class="text-xs text-text-muted block font-medium">Tempo estimado de Preparo</span>
-                        <span id="tempo-preparo-prato" class="text-base font-bold text-text-main"></span>
+                <div class="flex flex-wrap items-center gap-3 shrink-0 self-start sm:self-auto">
+                    <button onclick="copiarReceita(this)"
+                        class="bg-white border border-surface-border/30 hover:bg-surface-muted text-text-main rounded-xl py-2 px-3 flex items-center gap-2 card-shadow transition-colors">
+                        <i data-lucide="copy" class="w-4 h-4 text-text-muted"></i>
+                        <span class="text-sm font-medium">Copiar</span>
+                    </button>
+                    <button onclick="compartilharReceita()"
+                        class="bg-white border border-surface-border/30 hover:bg-surface-muted text-text-main rounded-xl py-2 px-3 flex items-center gap-2 card-shadow transition-colors">
+                        <i data-lucide="share-2" class="w-4 h-4 text-text-muted"></i>
+                        <span class="text-sm font-medium">Compartilhar</span>
+                    </button>
+                    <div
+                        class="bg-surface-muted border border-surface-border/30 rounded-xl py-3 px-5 flex items-center gap-2 card-shadow">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+                            <i data-lucide="clock" class="text-muted w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-text-muted block font-medium">Tempo estimado de Preparo</span>
+                            <span id="tempo-preparo-prato" class="text-base font-bold text-text-main"></span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="layout-receita" class="grid grid-cols-1 md:grid-cols-12 gap-8">
 
-                <div class="md:col-span-4 flex flex-col gap-8">
+                <div class="md:col-span-4 flex flex-col gap-6 sm:gap-8">
                     <div
-                        class="bg-[#fefce8] rounded-r-xl border-l-8 border-[#fcd34d] p-6 relative post-it-shadow self-start w-full">
-                        <div class="flex items-center gap-3 mb-6">
+                        class="bg-[#fefce8] rounded-r-xl border-l-8 border-[#fcd34d] p-5 sm:p-6 relative post-it-shadow self-start w-full">
+                        <div class="flex items-center gap-3 mb-4 sm:mb-6">
                             <i data-lucide="shopping-basket" class="text-[#ca8a04]"></i>
-                            <h3 class="text-xl font-bold text-[#854d0e]">Ingredientes</h3>
+                            <h3 class="text-lg sm:text-xl font-bold text-[#854d0e]">Ingredientes</h3>
                         </div>
                         <ul id="ingredientes-list"
-                            class="space-y-3 font-medium text-text-main notepad-lines min-h-[200px]">
+                            class="space-y-3 font-medium text-text-main notepad-lines min-h-[150px] sm:min-h-[200px]">
                         </ul>
                     </div>
 
                     <div id="layout-dicas" class="flex justify-center w-full">
                         <div id="wrapper-dica" class="opacity-0 w-full">
                             <div
-                                class="bg-[#fef08a] w-full p-6 rounded-sm relative transform -rotate-1 transition-transform duration-300 hover:rotate-0 post-it-shadow">
+                                class="bg-[#fef08a] w-full p-5 sm:p-6 rounded-sm relative transform -rotate-1 transition-transform duration-300 hover:rotate-0 post-it-shadow">
                                 <div class="post-it-pin bg-[#ef4444]"></div>
                                 <div class="flex items-center gap-2 mb-3 mt-2">
                                     <i data-lucide="lightbulb" class="text-[#ca8a04] w-5 h-5"></i>
                                     <h4 class="font-bold text-[#854d0e]">Dica de Ouro</h4>
                                 </div>
-                                <p id="dica-chefe" class="text-[#713f12] font-medium leading-relaxed"></p>
+                                <p id="dica-chefe"
+                                    class="text-[#713f12] font-medium leading-relaxed text-sm sm:text-base"></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    class="md:col-span-8 bg-white border border-surface-border/40 rounded-2xl p-8 card-shadow self-start">
-                    <div class="flex items-center gap-3 mb-8">
+                    class="md:col-span-8 bg-white border border-surface-border/40 rounded-2xl p-5 sm:p-8 card-shadow self-start">
+                    <div class="flex items-center gap-3 mb-6 sm:mb-8">
                         <i data-lucide="utensils-crossed" class="text-primary"></i>
                         <h3 class="text-2xl font-bold text-text-main">Modo de Preparo</h3>
                     </div>
@@ -137,6 +152,7 @@
     </main>
 
     <script>
+        let receitaAtual = null;
         lucide.createIcons();
 
         function showElement(id) {
@@ -154,11 +170,11 @@
 
         function renderizarMensagemChat(text) {
             return `
-                <div class="chat-msg opacity-0 flex gap-4 items-end">
-                    <div class="shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-2 overflow-hidden border-2 border-primary">
+                <div class="chat-msg opacity-0 flex gap-3 sm:gap-4 items-end">
+                    <div class="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary flex items-center justify-center mb-2 overflow-hidden border-2 border-primary">
                         <img src="caramelo.png" alt="Caramelo" class="w-full h-full object-cover">
                     </div>
-                    <div class="bg-surface-muted rounded-2xl rounded-bl-none p-5 max-w-[85%] border border-surface-border/30 text-lg">
+                    <div class="bg-surface-muted rounded-2xl rounded-bl-none p-4 sm:p-5 max-w-[90%] md:max-w-[85%] border border-surface-border/30 text-base sm:text-lg">
                         <p class="text-text-main leading-relaxed">${text}</p>
                     </div>
                 </div>
@@ -168,12 +184,12 @@
         function renderizarPasso(index, text) {
             const textoLimpo = text.replace(/^\s*(?:Passo\s*)?\d+[\.\-\):]\s*/i, "");
             return `
-                <div class="passo-receita opacity-0 flex gap-5 items-start">
-                    <div class="shrink-0 w-12 h-12 rounded-full border-2 border-primary text-text-main flex items-center justify-center font-bold text-xl card-shadow">
+                <div class="passo-receita opacity-0 flex gap-4 sm:gap-5 items-start">
+                    <div class="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-primary text-text-main flex items-center justify-center font-bold text-lg sm:text-xl card-shadow">
                         ${index + 1}
                     </div>
-                    <div class="flex-1 pt-1.5">
-                        <p class="text-text-main leading-relaxed text-lg">${textoLimpo}</p>
+                    <div class="flex-1 pt-1 sm:pt-1.5">
+                        <p class="text-text-main leading-relaxed text-base sm:text-lg">${textoLimpo}</p>
                     </div>
                 </div>
             `;
@@ -206,6 +222,7 @@
                 }
 
                 const receita = data.receita;
+                receitaAtual = receita;
                 if (receita.erro_personagem) {
                     const mensagensChat = document.getElementById("mensagens-chat");
                     mensagensChat.innerHTML = renderizarMensagemChat(receita.erro_personagem);
@@ -237,7 +254,7 @@
                 (receita.ingredientes || []).forEach((ing, index) => {
                     const id = `ing-${index}`;
                     const li = document.createElement("li");
-                    li.className = "ing-item opacity-0 flex items-start gap-3 text-lg";
+                    li.className = "ing-item opacity-0 flex items-start gap-3 text-base sm:text-lg";
                     li.innerHTML = `
                         <div class="relative flex items-center justify-center shrink-0 mt-1 w-5 h-5">
                             <input type="checkbox" id="${id}" class="peer absolute w-full h-full opacity-0 cursor-pointer z-10">
@@ -289,6 +306,77 @@
                 }
             }
         });
+
+        function formatarReceitaTexto() {
+            if (!receitaAtual) return "";
+            let texto = `${receitaAtual.nome_prato}\n`;
+            texto += `Tempo de Preparo: ${receitaAtual.tempo_preparo}\n\n`;
+            texto += `Ingredientes:\n`;
+            (receitaAtual.ingredientes || []).forEach(ing => {
+                texto += `- ${ing}\n`;
+            });
+            texto += `\nModo de Preparo:\n`;
+            (receitaAtual.receita || []).forEach((passo, index) => {
+                const textoLimpo = passo.replace(/^\s*(?:Passo\s*)?\d+[\.\-\):]\s*/i, "");
+                texto += `${index + 1}. ${textoLimpo}\n`;
+            });
+            if (receitaAtual.dica_do_chefe) {
+                texto += `\nDica do Chefe: ${receitaAtual.dica_do_chefe}\n`;
+            }
+            return texto;
+        }
+
+        async function copiarReceita(btn) {
+            const texto = formatarReceitaTexto();
+            if (!texto) return;
+            try {
+                await navigator.clipboard.writeText(texto);
+                const span = btn.querySelector('span');
+                const originalText = span.textContent;
+                span.textContent = "Copiado!";
+                setTimeout(() => { span.textContent = originalText; }, 2000);
+            } catch (err) {
+                alert("Erro ao copiar a receita.");
+            }
+        }
+
+        async function compartilharReceita() {
+            const texto = formatarReceitaTexto();
+            if (!texto) return;
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: receitaAtual.nome_prato,
+                        text: texto,
+                    });
+                } catch (err) {
+                    console.log("Erro ao compartilhar", err);
+                }
+            } else {
+                alert("O compartilhamento não é suportado neste navegador. Use o botão de copiar.");
+            }
+        }
+
+        function ajustarPlaceholder() {
+            const prompt = document.getElementById("prompt");
+            if (!prompt) return;
+            if (window.innerWidth < 640) {
+                prompt.placeholder = "O que vamos cozinhar hoje?";
+            } else {
+                prompt.placeholder = "O que vamos cozinhar hoje? Se estiver sem ideias, mande seus ingredientes e eu encontrarei a melhor receita";
+            }
+        }
+
+        const promptInputEl = document.getElementById("prompt");
+        if (promptInputEl) {
+            promptInputEl.addEventListener("input", function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        }
+
+        window.addEventListener("resize", ajustarPlaceholder);
+        ajustarPlaceholder();
     </script>
 </body>
 
