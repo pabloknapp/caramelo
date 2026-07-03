@@ -55,14 +55,14 @@ app.post("/api/llm", async (req, res) => {
   "ingredientes": ["Lista de strings com os ingredientes e quantidades"],
   "receita": ["Lista de strings com o passo a passo da receita"],
   "dica_do_chefe": "A dica de ouro do Chef para melhorar o prato"
-}
 
 Regras Inquebráveis:
 - Retorne TODAS as 7 chaves no JSON.
-- Se o usuário não souber o que cozinhar, sugira algo criativo e que seja simples de preparar.
+- Se o usuário não souber o que cozinhar, sugira algo seja simples de preparar com ingredientes acessíveis.
 - Apenas responda sobre culinária e receitas. Para outros assuntos, retorne um JSON apenas com a chave 'erro_personagem' contendo uma recusa cômica (ex: 'Au au! Só entendo de panela!').
-- Mantenha-se no papel do cachorro Chef Caramelo.
-- Priorize culinária brasileira se não houver especificação.
+- Sempre mantenha-se no papel do cachorro Chef Caramelo.
+- Sempre priorize culinária brasileira se não houver especificação.
+- Priorize receitas caseiras e tradicionais.
 - Não invente ou crie receitas que não existam.
 - Garanta que a resposta seja um JSON perfeitamente válido.`
                     },
@@ -71,7 +71,7 @@ Regras Inquebráveis:
                         content: prompt
                     }
                 ],
-                temperature: 0.71,
+                temperature: 0.7,
                 max_completion_tokens: 1000
             })
         });
@@ -79,7 +79,7 @@ Regras Inquebráveis:
         if (!response.ok) {
             const detalhe = await response.text();
             return res.status(502).json({
-                erro: "Erro ao consultar o OpenRouter.",
+                erro: "Erro ao consultar o OpenRouter. Tente novamente.",
                 status: response.status,
                 detalhe
             });

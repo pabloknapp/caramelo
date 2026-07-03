@@ -18,56 +18,7 @@
         window.animateDOM = animate;
         window.staggerDOM = stagger;
     </script>
-    <style>
-        .custom-shadow {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
-        }
-
-        .btn-shadow {
-            box-shadow: 0 4px 14px rgba(252, 185, 0, 0.4);
-        }
-
-        .btn-hover-shadow {
-            transition: all 0.3s ease;
-        }
-
-        .btn-hover-shadow:hover {
-            box-shadow: 0 6px 20px rgba(252, 185, 0, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .icon-shadow {
-            box-shadow: 0 8px 24px rgba(252, 185, 0, 0.3);
-        }
-
-        .input-shadow {
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02);
-        }
-
-        .card-shadow {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-        }
-
-        .post-it-shadow {
-            box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .notepad-lines {
-            background-image: repeating-linear-gradient(transparent, transparent 31px, #e5e7eb 31px, #e5e7eb 32px);
-            line-height: 32px;
-        }
-
-        .post-it-pin {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body
@@ -107,8 +58,8 @@
             </div>
             <div
                 class="flex items-center gap-3 bg-surface-muted py-3 px-5 rounded-2xl rounded-bl-none border border-surface-border/30">
-                <i data-lucide="loader-2" class="w-5 h-5 animate-spin text-primary shrink-0"></i>
                 <p class="text-text-main font-medium animate-pulse">O Chef Caramelo está preparando sua receita...</p>
+                <i data-lucide="loader-2" class="w-5 h-5 animate-spin text-primary shrink-0"></i>
             </div>
         </div>
 
@@ -130,12 +81,12 @@
                     <h2 id="nome-prato" class="text-2xl md:text-3xl font-extrabold text-text-main leading-tight"></h2>
                 </div>
                 <div
-                    class="bg-surface-muted border border-surface-border/30 rounded-xl py-3 px-5 flex items-center gap-3 shrink-0 self-start sm:self-auto card-shadow">
+                    class="bg-surface-muted border border-surface-border/30 rounded-xl py-3 px-5 flex items-center gap-2 shrink-0 self-start sm:self-auto card-shadow">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
                         <i data-lucide="clock" class="text-muted w-5 h-5"></i>
                     </div>
                     <div>
-                        <span class="text-xs text-text-muted block font-medium">Tempo de Preparo</span>
+                        <span class="text-xs text-text-muted block font-medium">Tempo estimado de Preparo</span>
                         <span id="tempo-preparo-prato" class="text-base font-bold text-text-main"></span>
                     </div>
                 </div>
@@ -304,7 +255,7 @@
                 (receita.receita || []).forEach((passo, index) => {
                     listaReceita.innerHTML += renderizarPasso(index, passo);
                 });
-                document.getElementById("dica-chefe").textContent = receita.dica_do_chefee || "O Chef não tem dicas extras hoje!";
+                document.getElementById("dica-chefe").textContent = receita.dica_do_chefe || "O Chef não tem dicas extras hoje!";
                 lucide.createIcons();
                 showElement("resposta-container");
                 if (window.animateDOM && window.staggerDOM) {
